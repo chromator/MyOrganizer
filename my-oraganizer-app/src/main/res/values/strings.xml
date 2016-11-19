@@ -20,4 +20,5 @@
     <string name="q2_activities">Q2 Activities - Life Invest</string>
     <string name="delegate_quick">Deledate OR Quick TODOs</string>
     <string name="postpone">Postpone</string>
+    <string name="new_task">New Task</string>
 </resources>
