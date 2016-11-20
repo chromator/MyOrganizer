@@ -20,13 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import avisha.com.myorganizer.R;
-import avisha.com.myorganizer.model.DataModal;
+import avisha.com.myorganizer.model.MOTask;
+import avisha.com.myorganizer.presenter.TaskListPresenter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView mRecyclerView;
     private OnVersionNameSelectionChangeListener mListener;
+    private TaskListPresenter mTaskListPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +37,16 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.today);
         setSupportActionBar(toolbar);
-
+        mTaskListPresenter = new TaskListPresenter();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.version_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        List<DataModal> dataModalList = new ArrayList<DataModal>();
-        dataModalList.add(new DataModal("Label1", "Description1"));
-        dataModalList.add(new DataModal("Label2", "Description2"));
-        dataModalList.add(new DataModal("Label3", "Description3"));
-        dataModalList.add(new DataModal("Label4", "Description4"));
-        dataModalList.add(new DataModal("Label5", "Description5"));
+        List<MOTask> dataModalList = mTaskListPresenter.getTodaysTaskList(this);
 
         RecyclerAdapter adapter = new RecyclerAdapter(this, dataModalList);
         adapter.setListener(mListener);
-        List<RecyclerSectionedList.Section> sectionList = prepareSectionList();
+        List<RecyclerSectionedList.Section> sectionList = prepareSectionList(dataModalList);
         RecyclerSectionedList.Section[] sectionArray = new RecyclerSectionedList.Section[sectionList.size()];
         RecyclerSectionedList sectionedAdapter = new
                 RecyclerSectionedList(this, R.layout.section_layout, R.id.section_title, adapter);
@@ -75,6 +72,43 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private List<MOTask> getDummyTaskList() {
+        ArrayList dummyTaskList = new ArrayList<MOTask>();
+        MOTask moTask1 = new MOTask();
+        moTask1.setName("Join Guitar class");
+        moTask1.setImportant(true);
+        moTask1.setUrgent(false);
+        moTask1.setPhone("345344323");
+        moTask1.setEmail("dfdfs@fdfd.com");
+
+        MOTask moTask2 = new MOTask();
+        moTask2.setName("Work on release documents");
+        moTask2.setImportant(true);
+        moTask2.setUrgent(true);
+        moTask2.setPhone("345344323");
+        moTask2.setEmail("dfdfs@fdfd.com");
+
+        MOTask moTask3 = new MOTask();
+        moTask3.setName("Prepare report for boss");
+        moTask3.setImportant(false);
+        moTask3.setUrgent(true);
+        moTask3.setPhone("345344323");
+        moTask3.setEmail("dfdfs@fdfd.com");
+
+        MOTask moTask4 = new MOTask();
+        moTask4.setName("Watch favorite TV show");
+        moTask4.setImportant(false);
+        moTask4.setUrgent(false);
+        moTask4.setPhone("345344323");
+        moTask4.setEmail("dfdfs@fdfd.com");
+
+        dummyTaskList.add(moTask1);
+        dummyTaskList.add(moTask2);
+        dummyTaskList.add(moTask3);
+        dummyTaskList.add(moTask4);
+        return dummyTaskList;
     }
 
     @Override
@@ -130,14 +164,47 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private List<RecyclerSectionedList.Section> prepareSectionList() {
+    private List<RecyclerSectionedList.Section> prepareSectionList(List<MOTask> taskList) {
+        if (taskList == null) {
+            return null;
+        }
+        int q1Count = 0;
+        int q2Count = -1;
+        int q3Count = -1;
+        int q4Count = -1;
+        int size = 0;
+
         List<RecyclerSectionedList.Section> sections =
                 new ArrayList<RecyclerSectionedList.Section>();
         Resources resources = getResources();
-        sections.add(new RecyclerSectionedList.Section(0, resources.getString(R.string.must_todo)));
-        sections.add(new RecyclerSectionedList.Section(2, resources.getString(R.string.q2_activities)));
-        sections.add(new RecyclerSectionedList.Section(3, resources.getString(R.string.delegate_quick)));
-        sections.add(new RecyclerSectionedList.Section(4, resources.getString(R.string.postpone)));
+
+
+        size = taskList.size();
+
+        for (int i = 0; i < size; i++) {
+            MOTask task = taskList.get(i);
+            if (task.isImportant() && !task.isUrgent() && q2Count == -1) {
+                q2Count = i;
+            } else if (!task.isImportant() && task.isUrgent() && q3Count == -1) {
+                q3Count = i;
+            } else if (!task.isImportant() && !task.isUrgent() && q3Count == -1) {
+                q4Count = i;
+            }
+        }
+
+        sections.add(new RecyclerSectionedList.Section(q1Count, resources.getString(R.string.must_todo)));
+
+        if (q2Count > -1) {
+            sections.add(new RecyclerSectionedList.Section(q2Count, resources.getString(R.string.q2_activities)));
+        }
+
+        if (q3Count > -1) {
+            sections.add(new RecyclerSectionedList.Section(q3Count, resources.getString(R.string.delegate_quick)));
+        }
+
+        if (q4Count > -1) {
+            sections.add(new RecyclerSectionedList.Section(q4Count, resources.getString(R.string.postpone)));
+        }
         return sections;
     }
 }

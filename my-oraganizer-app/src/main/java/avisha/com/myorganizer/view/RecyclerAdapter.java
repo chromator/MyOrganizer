@@ -12,6 +12,7 @@ import java.util.List;
 
 import avisha.com.myorganizer.R;
 import avisha.com.myorganizer.model.DataModal;
+import avisha.com.myorganizer.model.MOTask;
 
 /**
  * Created by swaroop.kulkarni on 3/8/2016.
@@ -19,10 +20,10 @@ import avisha.com.myorganizer.model.DataModal;
 public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder> {
 
     private Context mContext;
-    private List<DataModal> mDataModalList;
+    private List<MOTask> mDataModalList;
     private OnVersionNameSelectionChangeListener mListener;
 
-    public RecyclerAdapter(Context context, List<DataModal> dataModals) {
+    public RecyclerAdapter(Context context, List<MOTask> dataModals) {
         mDataModalList = dataModals;
         mContext = context;
     }
@@ -44,11 +45,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
-        DataModal dataModal = mDataModalList.get(position);
+        MOTask dataModal = mDataModalList.get(position);
         RecycleViewHolder holder = (RecycleViewHolder)viewHolder;
         holder.mDataModal = dataModal;
-        holder.mListTitle.setText(dataModal.getLabel());
-        holder.mListDescrion.setText(dataModal.getDescription());
+        holder.mListTitle.setText(dataModal.getName());
+        holder.mListDescrion.setText(dataModal.getEmail().toString());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +65,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerView.ViewHold
 
     public class RecycleViewHolder extends RecyclerView.ViewHolder {
         View mView;
-        DataModal mDataModal;
+        MOTask mDataModal;
         ImageView mListIcon;
         TextView mListTitle;
         TextView mListDescrion;

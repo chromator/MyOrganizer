@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 
 
@@ -33,7 +34,7 @@ final class Database extends SQLiteOpenHelper {
     private static final String TAG = "Database";
 
     private Database(Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);//Environment.getExternalStorageDirectory().getPath()+"/My/"+
     }
 
     /**
