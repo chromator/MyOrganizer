@@ -1,15 +1,18 @@
 package avisha.com.myorganizer.model;
 
+import java.io.Serializable;
+
 /**
  * Created by skulw on 11/19/16.
  */
-public class MOTask {
+public class MOTask implements Serializable {
     private String name;
     private boolean important;
     private boolean urgent;
     private Long date;
     private String phone;
     private String email;
+    private int id;
 
     public String getName() {
         return name;
@@ -57,5 +60,13 @@ public class MOTask {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

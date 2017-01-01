@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="avisha.com.myorganizer">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".view.MainActivity"
             android:label="@string/q2"
@@ -20,13 +21,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.NewTaskActivity"
-            android:parentActivityName=".view.MainActivity"
-            android:label="@string/new_task">
+        <activity
+            android:name=".view.NewTaskActivity"
+            android:label="@string/new_task"
+            android:parentActivityName=".view.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.MainActivity" />
         </activity>
+        <activity
+            android:name=".view.ViewTaskDetails"
+            android:label="View details" />
+        <activity android:name=".view.EditTaskActivity"
+            android:label="Edit Tasks"></activity>
     </application>
 
 </manifest>

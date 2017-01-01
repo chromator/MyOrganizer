@@ -22,7 +22,9 @@ final class Database extends SQLiteOpenHelper {
     public static final String TASK_DATE = "TASK_DATE";
     public static final String TASK_PHONE = "TASK_PHONE";
     public static final String TASK_EMAIL = "TASK_EMAIL";
+    public static final String TASK_ID = "TASK_ID";
     public static final String QUERY_CREATE_TBL_TASK = "CREATE TABLE " + TASK + "( "
+            + TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TASK_NAME + " TEXT NOT NULL, "
             + TASK_IMPORTANT + " TEXT NOT NULL, "
             + TASK_URGENT + " TEXT NOT NULL, "

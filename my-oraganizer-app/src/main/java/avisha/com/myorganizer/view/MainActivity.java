@@ -1,13 +1,16 @@
 package avisha.com.myorganizer.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +30,12 @@ import avisha.com.myorganizer.presenter.TaskListPresenter;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private OnVersionNameSelectionChangeListener mListener;
     private TaskListPresenter mTaskListPresenter;
+    private RecyclerAdapter mAdapter;
+    private List<MOTask> mTaskList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +45,10 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitle(R.string.today);
         setSupportActionBar(toolbar);
         mTaskListPresenter = new TaskListPresenter();
+        mTaskListPresenter.attach(this);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.version_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-        List<MOTask> dataModalList = mTaskListPresenter.getTodaysTaskList(this);
-
-        RecyclerAdapter adapter = new RecyclerAdapter(this, dataModalList);
-        adapter.setListener(mListener);
-        List<RecyclerSectionedList.Section> sectionList = prepareSectionList(dataModalList);
-        RecyclerSectionedList.Section[] sectionArray = new RecyclerSectionedList.Section[sectionList.size()];
-        RecyclerSectionedList sectionedAdapter = new
-                RecyclerSectionedList(this, R.layout.section_layout, R.id.section_title, adapter);
-        sectionedAdapter.setSections(sectionList.toArray(sectionArray));
-        mRecyclerView.setAdapter(sectionedAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -74,10 +71,17 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LoadTasksAsyncTask asyncTask = new LoadTasksAsyncTask(this);
+        asyncTask.execute();
+    }
+
     private List<MOTask> getDummyTaskList() {
         ArrayList dummyTaskList = new ArrayList<MOTask>();
         MOTask moTask1 = new MOTask();
-        moTask1.setName("Join Guitar class");
+        moTask1.setName("adasds");
         moTask1.setImportant(true);
         moTask1.setUrgent(false);
         moTask1.setPhone("345344323");
@@ -187,7 +191,7 @@ public class MainActivity extends AppCompatActivity
                 q2Count = i;
             } else if (!task.isImportant() && task.isUrgent() && q3Count == -1) {
                 q3Count = i;
-            } else if (!task.isImportant() && !task.isUrgent() && q3Count == -1) {
+            } else if (!task.isImportant() && !task.isUrgent() && q4Count == -1) {
                 q4Count = i;
             }
         }
@@ -206,5 +210,84 @@ public class MainActivity extends AppCompatActivity
             sections.add(new RecyclerSectionedList.Section(q4Count, resources.getString(R.string.postpone)));
         }
         return sections;
+    }
+
+    public void removeItem(MOTask moTask) {
+        int index = -1;
+        if(moTask != null) {
+            index = mAdapter.getItemIndex(moTask);
+            if(index > -1) {
+                mTaskList.remove(index);
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+
+    /**
+     * Created by skulw on 11/20/16.
+     */
+    public class LoadTasksAsyncTask extends AsyncTask<Void, Void, List<MOTask>> {
+
+        private final WeakReference<MainActivity> mContext;
+
+        public LoadTasksAsyncTask(MainActivity context) {
+            mContext = new WeakReference<MainActivity>(context);
+        }
+
+        @Override
+        protected List<MOTask> doInBackground(Void... voids) {
+            return mTaskListPresenter.getTodaysTaskList();
+        }
+
+        @Override
+        protected void onPostExecute(final List<MOTask> moTaskList) {
+            super.onPostExecute(moTaskList);
+            mContext.get().loadTaskList(moTaskList);
+        }
+
+    }
+
+    private void loadTaskList(final List<MOTask> moTaskList) {
+        mTaskList = moTaskList;
+        mAdapter = new RecyclerAdapter(this, mTaskList);
+        mAdapter.setListener(new OnVersionNameSelectionChangeListener() {
+            @Override
+            public void OnSelectionChanged(int versionNameIndex) {
+                Intent intent = new Intent(MainActivity.this, ViewTaskDetails.class);
+                intent.putExtra("task", moTaskList.get(versionNameIndex));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(final int index) {
+                AlertDialog dialog = null;
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Delete Task")
+                        .setMessage("Do you want to delete this task?")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mTaskListPresenter.deleteTask(mTaskList.get(index));
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+
+                dialog = builder.show();
+            }
+        });
+
+        List<RecyclerSectionedList.Section> sectionList = prepareSectionList(mTaskList);
+        RecyclerSectionedList.Section[] sectionArray = new RecyclerSectionedList.Section[sectionList.size()];
+        RecyclerSectionedList sectionedAdapter = new
+                RecyclerSectionedList(this, R.layout.section_layout, R.id.section_title, mAdapter);
+        sectionedAdapter.setSections(sectionList.toArray(sectionArray));
+        mRecyclerView.setAdapter(sectionedAdapter);
     }
 }

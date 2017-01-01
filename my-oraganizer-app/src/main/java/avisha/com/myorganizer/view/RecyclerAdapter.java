@@ -2,6 +2,7 @@ package avisha.com.myorganizer.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,14 +47,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         MOTask dataModal = mDataModalList.get(position);
+        String name = dataModal.getName();
         RecycleViewHolder holder = (RecycleViewHolder)viewHolder;
         holder.mDataModal = dataModal;
-        holder.mListTitle.setText(dataModal.getName());
+
+        if(!TextUtils.isEmpty(name)) {
+            holder.mListIcon.setText(""+name.toUpperCase().charAt(0));
+            holder.mListTitle.setText(name);
+        }
+
         holder.mListDescrion.setText(dataModal.getEmail().toString());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(null != mListener) mListener.OnSelectionChanged(position);
+            }
+        });
+        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(null != mListener) {
+                    mListener.onLongClick(position);
+                }
+                return false;
             }
         });
     }
@@ -63,17 +79,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerView.ViewHold
         return mDataModalList.size();
     }
 
+    public int getItemIndex(MOTask moTask) {
+        return mDataModalList.indexOf(moTask);
+    }
+
     public class RecycleViewHolder extends RecyclerView.ViewHolder {
         View mView;
         MOTask mDataModal;
-        ImageView mListIcon;
+        TextView mListIcon;
         TextView mListTitle;
         TextView mListDescrion;
 
         public RecycleViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mListIcon = (ImageView) itemView.findViewById(R.id.list_icon);
+            mListIcon = (TextView) itemView.findViewById(R.id.list_icon);
             mListTitle = (TextView) itemView.findViewById(R.id.list_title);
             mListDescrion = (TextView) itemView.findViewById(R.id.list_desc);
         }

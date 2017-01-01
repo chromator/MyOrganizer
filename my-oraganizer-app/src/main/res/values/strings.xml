@@ -21,4 +21,9 @@
     <string name="delegate_quick">Deledate OR Quick TODOs</string>
     <string name="postpone">Postpone</string>
     <string name="new_task">New Task</string>
+    <string name="task_name">Task Name</string>
+    <string name="important">Important</string>
+    <string name="urgent">Urgent</string>
+    <string name="not_important">Not Important</string>
+    <string name="not_urgent">Not Urgent</string>
 </resources>

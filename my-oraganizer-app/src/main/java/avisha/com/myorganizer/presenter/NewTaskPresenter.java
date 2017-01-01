@@ -14,7 +14,7 @@ public class NewTaskPresenter {
     public void attach(NewTaskActivity newTaskActivity) {
         if(newTaskActivity != null) {
             mView = newTaskActivity;
-            mDatbaseHandler = new DatabaseHandler(newTaskActivity);
+            mDatbaseHandler = DatabaseHandler.databaseHandler(newTaskActivity);
         }
     }
 

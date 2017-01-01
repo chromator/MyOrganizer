@@ -5,4 +5,5 @@ package avisha.com.myorganizer.view;
  */
 public interface OnVersionNameSelectionChangeListener {
     public void OnSelectionChanged(int versionNameIndex);
+    public void onLongClick(int index);
 }

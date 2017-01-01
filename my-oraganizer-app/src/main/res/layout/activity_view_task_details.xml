@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_view_task_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="avisha.com.myorganizer.view.ViewTaskDetails">
+
+    <TextView
+        android:id="@+id/task_name_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="My task name"/>
+
+    <TextView
+        android:id="@+id/important_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/task_name_txt"
+        android:text="Important" />
+
+    <TextView
+        android:id="@+id/urgent_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Urgent"
+        android:layout_below="@id/important_txt"/>
+
+    <TextView
+        android:id="@+id/date_time_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: Nov 21, 2016 at 12:34 p.m."
+        android:layout_below="@id/urgent_txt"/>
+
+    <TextView
+        android:id="@+id/phone_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date_time_txt"
+        android:text="Phone: 773-435-1234"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone_txt"
+        android:text="Email: swk.lik@gmail.com"
+        android:id="@+id/email_txt" />
+
+    <Button
+        android:text="Edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/email_txt"
+        android:layout_toRightOf="@+id/important_txt"
+        android:layout_toEndOf="@+id/important_txt"
+        android:layout_marginTop="33dp"
+        android:id="@+id/edit_btn" />
+
+</RelativeLayout>

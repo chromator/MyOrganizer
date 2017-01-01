@@ -7,7 +7,6 @@
         android:id="@+id/inactive_tech_section"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
         android:orientation="vertical"
         android:visibility="visible">
 
@@ -25,13 +24,12 @@
             android:id="@+id/section_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
             android:gravity="center_vertical"
             android:paddingBottom="10dp"
             android:paddingLeft="16dp"
             android:paddingTop="10dp"
             android:singleLine="true"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             android:text="A"/>

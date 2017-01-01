@@ -2,6 +2,7 @@ package avisha.com.myorganizer.view;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
     private Button saveButton;
     private NewTaskPresenter mPresenter;
     private MOTask mMoTask;
-    private EditText taskNameView;
+    private TextInputEditText taskNameView;
     private Switch taskImportantView;
     private Switch taskUrgentView;
     private EditText taskDateView;
@@ -109,7 +110,7 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void getViewId() {
-        taskNameView = (EditText) findViewById(R.id.taskName);
+        taskNameView = (TextInputEditText) findViewById(R.id.taskName);
         taskImportantView = (Switch) findViewById(R.id.important_switch);
         taskUrgentView = (Switch) findViewById(R.id.urgent_switch);
         taskDateView = (EditText) findViewById(R.id.date_edit);
