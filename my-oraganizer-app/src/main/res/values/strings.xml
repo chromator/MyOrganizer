@@ -26,4 +26,9 @@
     <string name="urgent">Urgent</string>
     <string name="not_important">Not Important</string>
     <string name="not_urgent">Not Urgent</string>
+    <string name="is_it_important">Is it Important?</string>
+    <string name="is_it_urgent">Is it Urgent?</string>
+    <string name="date">Date</string>
+    <string name="date_time"><![CDATA[Date & Time]]></string>
+    <string name="menu_save">Save</string>
 </resources>
