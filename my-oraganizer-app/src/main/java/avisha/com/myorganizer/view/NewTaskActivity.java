@@ -5,11 +5,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -22,7 +22,6 @@ import android.widget.Switch;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import avisha.com.myorganizer.R;
 import avisha.com.myorganizer.model.MOTask;
@@ -32,7 +31,6 @@ import avisha.com.myorganizer.util.Util;
 public class NewTaskActivity extends AppCompatActivity {
 
     private static final int PERMISSION_WRITE_EXTERNAL = 1;
-    private Button saveButton;
     private NewTaskPresenter mPresenter;
     private MOTask mMoTask;
     private TextInputEditText taskNameView;
@@ -193,48 +191,4 @@ public class NewTaskActivity extends AppCompatActivity {
         finish();
     }
 
-    public static class DatePickerFragment extends DialogFragment {
-
-        private DatePickerDialog.OnDateSetListener listener;
-        private DatePickerDialog datePickerDialog;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-            datePickerDialog = new DatePickerDialog(getActivity(), listener, year, month, day);
-            // Create a new instance of DatePickerDialog and return it
-            return datePickerDialog;
-        }
-
-        public void setOnDateSetListener(DatePickerDialog.OnDateSetListener listener) {
-            this.listener = listener;
-        }
-
-    }
-
-    public static class TimePickerFragment extends DialogFragment {
-
-        private TimePickerDialog.OnTimeSetListener listener;
-        private TimePickerDialog timePickerDialog;
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int hourofDay = c.get(Calendar.HOUR_OF_DAY);
-            int minutes = c.get(Calendar.MINUTE);
-            timePickerDialog = new TimePickerDialog(getActivity(), listener, hourofDay, minutes, false);
-            // Create a new instance of DatePickerDialog and return it
-            return timePickerDialog;
-        }
-
-        public void setOnTimeSetListener(TimePickerDialog.OnTimeSetListener listener) {
-            this.listener = listener;
-        }
-
-    }
 }

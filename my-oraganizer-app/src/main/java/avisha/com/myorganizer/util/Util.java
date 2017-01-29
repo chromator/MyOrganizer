@@ -30,4 +30,26 @@ public class Util {
         textTime = dateFormat.format(calendar.getTime());
         return textTime;
     }
+
+    public static String milisToTextDate(long time) {
+        if(time <= 0) {
+            return null;
+        }
+        String textTime = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat();
+        dateFormat.applyPattern("EEE, MMM dd yyyy");
+        textTime = dateFormat.format(time);
+        return textTime;
+    }
+
+    public static String milisToTextTime(long time) {
+        if(time <= 0) {
+            return null;
+        }
+        String textTime = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat();
+        dateFormat.applyPattern("KK:mm a");
+        textTime = dateFormat.format(time);
+        return textTime;
+    }
 }

@@ -16,12 +16,12 @@
     <string name="menu_know_your_productivity">Know Your Productivity</string>
     <string name="menu_settings">Settings</string>
     <string name="today">Today</string>
-    <string name="must_todo">Must TODOs</string>
-    <string name="q2_activities">Q2 Activities - Life Invest</string>
-    <string name="delegate_quick">Deledate OR Quick TODOs</string>
-    <string name="postpone">Postpone</string>
+    <string name="necessity">NECESSITY</string>
+    <string name="extr_prod">EXTRAORDINARY PRODUCTIVITY</string>
+    <string name="distraction">DISTRACTION</string>
+    <string name="waste">WASTE</string>
     <string name="new_task">New Task</string>
-    <string name="task_name">Task Name</string>
+    <string name="category">Category</string>
     <string name="important">Important</string>
     <string name="urgent">Urgent</string>
     <string name="not_important">Not Important</string>
@@ -31,4 +31,8 @@
     <string name="date">Date</string>
     <string name="date_time"><![CDATA[Date & Time]]></string>
     <string name="menu_save">Save</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="menu_edit">Edit</string>
+    <string name="task_name">Task name</string>
 </resources>

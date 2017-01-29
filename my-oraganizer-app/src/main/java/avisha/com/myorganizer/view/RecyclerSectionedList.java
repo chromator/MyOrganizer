@@ -71,7 +71,7 @@ public class RecyclerSectionedList extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder sectionViewHolder, int position) {
-        if (isSectionHeaderPosition(position)) {
+        if (getSectionHeaderPosition(position)) {
             ((SectionViewHolder) sectionViewHolder).title.setText(mSections.get(position).title);
         } else {
             mBaseAdapter.onBindViewHolder(sectionViewHolder, sectionedPositionToPosition(position));
@@ -86,7 +86,7 @@ public class RecyclerSectionedList extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public int getItemViewType(int position) {
         int viewType = -1;
-        if (isSectionHeaderPosition(position)) {
+        if (getSectionHeaderPosition(position)) {
             viewType = SECTION_TYPE1;
         } else {
             viewType = mBaseAdapter.getItemViewType(sectionedPositionToPosition(position)) + 1;
@@ -94,7 +94,7 @@ public class RecyclerSectionedList extends RecyclerView.Adapter<RecyclerView.Vie
         return viewType;
     }
 
-    public boolean isSectionHeaderPosition(int position) {
+    public boolean getSectionHeaderPosition(int position) {
         return mSections.get(position) != null;
     }
 
@@ -132,7 +132,7 @@ public class RecyclerSectionedList extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     public int sectionedPositionToPosition(int sectionedPosition) {
-        if (isSectionHeaderPosition(sectionedPosition)) {
+        if (getSectionHeaderPosition(sectionedPosition)) {
             return RecyclerView.NO_POSITION;
         }
 

@@ -196,18 +196,18 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        sections.add(new RecyclerSectionedList.Section(q1Count, resources.getString(R.string.must_todo)));
+        sections.add(new RecyclerSectionedList.Section(q1Count, resources.getString(R.string.necessity)));
 
         if (q2Count > -1) {
-            sections.add(new RecyclerSectionedList.Section(q2Count, resources.getString(R.string.q2_activities)));
+            sections.add(new RecyclerSectionedList.Section(q2Count, resources.getString(R.string.extr_prod)));
         }
 
         if (q3Count > -1) {
-            sections.add(new RecyclerSectionedList.Section(q3Count, resources.getString(R.string.delegate_quick)));
+            sections.add(new RecyclerSectionedList.Section(q3Count, resources.getString(R.string.distraction)));
         }
 
         if (q4Count > -1) {
-            sections.add(new RecyclerSectionedList.Section(q4Count, resources.getString(R.string.postpone)));
+            sections.add(new RecyclerSectionedList.Section(q4Count, resources.getString(R.string.waste)));
         }
         return sections;
     }

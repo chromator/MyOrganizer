@@ -1,65 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_view_task_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="avisha.com.myorganizer.view.ViewTaskDetails">
 
-    <TextView
-        android:id="@+id/task_name_txt"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/layout_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="My task name"/>
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <TextView
-        android:id="@+id/important_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/task_name_txt"
-        android:text="Important" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <TextView
-        android:id="@+id/urgent_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Urgent"
-        android:layout_below="@id/important_txt"/>
+    </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/date_time_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date: Nov 21, 2016 at 12:34 p.m."
-        android:layout_below="@id/urgent_txt"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TextView
-        android:id="@+id/phone_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/date_time_txt"
-        android:text="Phone: 773-435-1234"/>
+        <TextView
+            android:id="@+id/label_task_name"
+            style="@style/LabelBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_name" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/phone_txt"
-        android:text="Email: swk.lik@gmail.com"
-        android:id="@+id/email_txt" />
+        <TextView
+            android:id="@+id/task_name_txt"
+            style="@style/Body0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="My task name" />
 
-    <Button
-        android:text="Edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/email_txt"
-        android:layout_toRightOf="@+id/important_txt"
-        android:layout_toEndOf="@+id/important_txt"
-        android:layout_marginTop="33dp"
-        android:id="@+id/edit_btn" />
+        <TextView
+            android:id="@+id/label_task_category"
+            style="@style/LabelBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/category" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/important_txt"
+            style="@style/Body0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Important" />
+
+        <TextView
+            android:id="@+id/label_date"
+            style="@style/LabelBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/date_time" />
+
+        <TextView
+            android:id="@+id/date_time_txt"
+            style="@style/Body0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Date: Nov 21, 2016 at 12:34 p.m." />
+
+        <TextView
+            android:id="@+id/label_phone"
+            style="@style/LabelBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/phone" />
+
+        <TextView
+            android:id="@+id/phone_txt"
+            style="@style/Body0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Phone: 773-435-1234" />
+
+        <TextView
+            android:id="@+id/label_email"
+            style="@style/LabelBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/email" />
+
+        <TextView
+            android:id="@+id/email_txt"
+            style="@style/Body0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Email: swk.lik@gmail.com" />
+
+    </LinearLayout>
+</LinearLayout>
