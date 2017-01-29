@@ -52,7 +52,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerView.ViewHold
         holder.mDataModal = dataModal;
 
         if(!TextUtils.isEmpty(name)) {
-            holder.mListIcon.setText(""+name.toUpperCase().charAt(0));
+            if(dataModal.isImportant() && dataModal.isUrgent()) {
+                holder.mListIcon.setBackgroundColor(mContext.getResources().getColor(R.color.q1_color));
+                holder.mListIcon.setText("Q1");
+            } else if(dataModal.isImportant() && !dataModal.isUrgent()) {
+                holder.mListIcon.setBackgroundColor(mContext.getResources().getColor(R.color.q2_color));
+                holder.mListIcon.setText("Q2");
+            } else if(!dataModal.isImportant() && dataModal.isUrgent()) {
+                holder.mListIcon.setBackgroundColor(mContext.getResources().getColor(R.color.q3_color));
+                holder.mListIcon.setText("Q3");
+            } else {
+                holder.mListIcon.setText("Q4");
+            }
             holder.mListTitle.setText(name);
         }
 

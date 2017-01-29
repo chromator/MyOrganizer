@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -107,6 +108,7 @@ public class EditTaskActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void loadViews() {
+        mCalendar = Calendar.getInstance();
         taskNameView = (EditText) findViewById(R.id.task_name_edt);
         taskImportantView = (Switch) findViewById(R.id.important_swt);
         taskUrgentView = (Switch) findViewById(R.id.urgent_swt);
@@ -141,6 +143,22 @@ public class EditTaskActivity extends AppCompatActivity implements View.OnClickL
         taskTimeView.setText(Util.milisToTextTime(mMoTask.getDate()));
         taskPhoneView.setText(mMoTask.getPhone());
         taskEmailView.setText(mMoTask.getEmail());
+
+
+        taskUrgentView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                taskDateView.setEnabled(!b);
+                taskTimeView.setEnabled(!b);
+                if(b) {
+                    taskDateView.setText(Util.toTextDate(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DATE)));
+                    taskTimeView.setText(Util.toTextTime(mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE)));
+                } else {
+                    taskDateView.setText(Util.milisToTextDate(mMoTask.getDate()));
+                    taskTimeView.setText(Util.milisToTextTime(mMoTask.getDate()));
+                }
+            }
+        });
     }
 
     @Override

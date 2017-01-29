@@ -218,7 +218,12 @@ public class MainActivity extends AppCompatActivity
             index = mAdapter.getItemIndex(moTask);
             if(index > -1) {
                 mTaskList.remove(index);
-                mAdapter.notifyDataSetChanged();
+                List<RecyclerSectionedList.Section> sectionList = prepareSectionList(mTaskList);
+                RecyclerSectionedList.Section[] sectionArray = new RecyclerSectionedList.Section[sectionList.size()];
+                RecyclerSectionedList sectionedAdapter = new
+                        RecyclerSectionedList(this, R.layout.section_layout, R.id.section_title, mAdapter);
+                sectionedAdapter.setSections(sectionList.toArray(sectionArray));
+                mRecyclerView.setAdapter(sectionedAdapter);
             }
         }
     }

@@ -49,21 +49,6 @@
             android:text="My task name" />
 
         <TextView
-            android:id="@+id/label_task_category"
-            style="@style/LabelBlack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/category" />
-
-        <TextView
-            android:id="@+id/important_txt"
-            style="@style/Body0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Important" />
-
-        <TextView
             android:id="@+id/label_date"
             style="@style/LabelBlack"
             android:layout_width="wrap_content"

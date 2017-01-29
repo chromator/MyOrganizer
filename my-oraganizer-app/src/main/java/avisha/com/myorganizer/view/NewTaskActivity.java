@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -40,7 +42,9 @@ public class NewTaskActivity extends AppCompatActivity {
     private EditText taskTimeView;
     private EditText taskPhoneView;
     private EditText taskEmailView;
+    private Button saveNAddButton;
     private Calendar mCalendar;
+
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -162,6 +166,7 @@ public class NewTaskActivity extends AppCompatActivity {
         taskTimeView = (EditText) findViewById(R.id.time_edit);
         taskPhoneView = (EditText) findViewById(R.id.phone_edit);
         taskEmailView = (EditText) findViewById(R.id.email_edit);
+        saveNAddButton = (Button) findViewById(R.id.save_n_add_btn);
 
         mCalendar = Calendar.getInstance();
         taskDateView.setText(Util.toTextDate(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DATE)));
@@ -183,6 +188,26 @@ public class NewTaskActivity extends AppCompatActivity {
                 TimePickerFragment newFragment = new TimePickerFragment();
                 newFragment.show(getSupportFragmentManager(), "timePicker");
                 newFragment.setOnTimeSetListener(timeSetListener);
+            }
+        });
+
+        taskUrgentView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                taskDateView.setEnabled(!b);
+                taskTimeView.setEnabled(!b);
+            }
+        });
+
+        saveNAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(validateAllFields()) {
+                    mPresenter.saveNewTaskInfo(mMoTask);
+                    Intent intent = new Intent(NewTaskActivity.this, NewTaskActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }

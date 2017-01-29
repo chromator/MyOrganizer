@@ -16,7 +16,6 @@ public class ViewTaskDetails extends AppCompatActivity {
 
     private MOTask moTask;
     private TextView taskNameView;
-    private TextView importantView;
     private TextView dateTimeView;
     private TextView phoneView;
     private TextView emailView;
@@ -64,21 +63,11 @@ public class ViewTaskDetails extends AppCompatActivity {
 
     private void loadViews() {
         taskNameView = (TextView) findViewById(R.id.task_name_txt);
-        importantView = (TextView) findViewById(R.id.important_txt);
         dateTimeView = (TextView) findViewById(R.id.date_time_txt);
         phoneView = (TextView) findViewById(R.id.phone_txt);
         emailView = (TextView) findViewById(R.id.email_txt);
 
         taskNameView.setText(moTask.getName());
-        if (moTask.isImportant() && moTask.isUrgent()) {
-            importantView.setText("NECESSITY : A must to-do task");
-        } else if (moTask.isImportant() && !moTask.isUrgent()) {
-            importantView.setText("EXTRAORDINARY PRODUCTIVITY : Task that is investment to your health, relationship & finances.");
-        } else if (moTask.isUrgent() && !moTask.isImportant()) {
-            importantView.setText("DISTRACTION: Someone delegated a task. Quickly finish it!");
-        } else if (!moTask.isImportant() && !moTask.isUrgent()) {
-            importantView.setText("WASTE: Don't do it or postpone.");
-        }
         dateTimeView.setText(Util.milisToTextDate(moTask.getDate()) +" "+Util.milisToTextTime(moTask.getDate()));
         phoneView.setText(moTask.getPhone());
         emailView.setText(moTask.getEmail());

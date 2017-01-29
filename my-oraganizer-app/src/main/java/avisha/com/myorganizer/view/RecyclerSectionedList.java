@@ -11,6 +11,8 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import avisha.com.myorganizer.R;
+
 /**
  * Created by swaroop.kulkarni on 3/15/2016.
  */
@@ -72,7 +74,9 @@ public class RecyclerSectionedList extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder sectionViewHolder, int position) {
         if (getSectionHeaderPosition(position)) {
-            ((SectionViewHolder) sectionViewHolder).title.setText(mSections.get(position).title);
+            Section section = mSections.get(position);
+            SectionViewHolder sectionViewHolder1 = ((SectionViewHolder) sectionViewHolder);
+            sectionViewHolder1.title.setText(section.title);
         } else {
             mBaseAdapter.onBindViewHolder(sectionViewHolder, sectionedPositionToPosition(position));
         }
@@ -148,11 +152,13 @@ public class RecyclerSectionedList extends RecyclerView.Adapter<RecyclerView.Vie
 
     public static class SectionViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView title;
+        TextView title;
+        View view;
 
-        public SectionViewHolder(View view, int mTextResourceid) {
-            super(view);
-            title = (TextView) view.findViewById(mTextResourceid);
+        public SectionViewHolder(View v, int mTextResourceid) {
+            super(v);
+            view = v;
+            title = (TextView) v.findViewById(mTextResourceid);
         }
     }
 

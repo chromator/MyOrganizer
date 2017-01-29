@@ -159,5 +159,15 @@
             android:hint="Email"
             android:inputType="textEmailAddress" />
 
+        <Button
+            android:id="@+id/save_n_add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/button_style"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="Save \u0026 Add" />
+
     </RelativeLayout>
 </RelativeLayout>

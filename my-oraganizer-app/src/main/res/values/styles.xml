@@ -39,7 +39,7 @@
     <style name="label_style">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:background">@color/grey</item>
+        <item name="android:background">@color/light_grey</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
     <style name="LabelBlack">
@@ -49,8 +49,7 @@
     </style>
     <style name="ListItemPrimary">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
     <style name="ListItemSecondary">
@@ -66,8 +65,11 @@
     </style>
     <style name="Body0">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="button_style" parent="Base.Widget.AppCompat.Button">
+        <item name="background">@drawable/button_background</item>
     </style>
 </resources>
